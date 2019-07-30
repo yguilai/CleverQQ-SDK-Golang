@@ -1,7 +1,8 @@
 package main
 
 import (
-	"CleverQQ-SDK-Golang/clvq"
+	"github.com/yguilai/CleverQQ-SDK-Golang/clvq"
+	"strings"
 )
 
 func init() {
@@ -12,11 +13,20 @@ func init() {
 	clvq.IREvent = irEvent
 }
 
-// 此函数不写代码, 仅为编译需要
+// main函数不写代码, 仅为编译需要
 func main() {
 
 }
 
 func irEvent(qq string, msgType, subMsgType int, msgFrom, tigObjAct, tigObjPas, msg, msgNum, msgId, rawMsg, json string, ptrNext int) int {
+	if msgType == clvq.MT_GROUP || msgType == clvq.MT_FRIEND {
+		// 注意: go语言中中文占3字符
+		if msg[:6] == "复读" {
+			str := strings.Replace(msg, "复读", "", -1)
+			str = strings.TrimSpace(str)
+			clvq.IRSendMsg(qq, msgType, msgFrom, tigObjAct, msg, -1)
+			return clvq.MT_CONTINUE
+		}
+	}
 	return clvq.MT_CONTINUE
 }

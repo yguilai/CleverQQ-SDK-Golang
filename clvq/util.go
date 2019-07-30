@@ -3,6 +3,8 @@ package clvq
 import "C"
 import (
 	sc "golang.org/x/text/encoding/simplifiedchinese"
+	"os"
+	"path/filepath"
 	"unsafe"
 )
 
@@ -77,4 +79,14 @@ func _ptr2str(ptr uintptr) string {
 		ptr += 1
 	}
 	return string(b)
+}
+
+// GetCurrPath 获取当前程序路径
+// 假设框架程序CleverQQ Air.exe运行在D:\CleverQQ, 则返回D:\CleverQQ
+func GetCurrPath() (string, error) {
+	path, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	if err != nil {
+		return "", err
+	}
+	return path, nil
 }
