@@ -603,7 +603,7 @@ func IROffLineQQ(qq string) {
 
 //是否QQ好友 好友返回真 非好友或获取失败返回假
 func IRIfFriend(QQ, objQQ string) bool {
-	r, _, _ := ifFriend.Call()
+	r, _, _ := ifFriend.Call(str2ptr(QQ), str2ptr(objQQ))
 	return ptr2bool(r)
 }
 
