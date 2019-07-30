@@ -5,7 +5,7 @@
 
 ## 注意
 * 本项目使用了cgo, 而框架提供的`IRapi.dll`为32位, 故请确保你的系统中有安装32位GCC编译器
-> 附我的[编译器](https://www.lanzous.com/i58etri) 
+> 附我的<a href="https://www.lanzous.com/i58etri" target="_blank">GCC编译器</a>
 * 编译时, 请将输出的.dll文件名修改为`插件名称.IR.dll`, 与你代码中的插件名称保持一致, 否则会导致框架无法正常启动(闪退)
 
 
