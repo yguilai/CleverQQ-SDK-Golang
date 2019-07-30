@@ -12,5 +12,5 @@
 *.out
 
 
-go.sum
-.gitignore
+*.sum
+*.gitignore
