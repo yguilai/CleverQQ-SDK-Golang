@@ -13,4 +13,4 @@
 
 
 *.sum
-*.gitignore
+.gitignore
