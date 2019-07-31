@@ -7,7 +7,7 @@
 * 本项目使用了cgo, 而框架提供的`IRapi.dll`为32位, 故请确保你的系统中有安装32位GCC编译器
 > 附我的[GCC编译器](https://www.lanzous.com/i58etri?_blank)
 * 编译时, 请将输出的.dll文件名修改为`插件名称.IR.dll`, 与你代码中的插件名称保持一致, 否则会导致框架无法正常启动(闪退)
-
+* 请勿在项目的其他包内导入clvq包, 因为这会导致`IR_Create IR_Message`等4个函数重复export, 最后导致框架调用到你的插件时会闪退
 
 ## 获取
 ```bash
