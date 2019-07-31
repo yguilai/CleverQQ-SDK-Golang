@@ -53,10 +53,20 @@ go build -ldflags "-s -w" -buildmode=c-shared -o 插件名称.IR.dll
 ```
 > 建议使用bat脚本, 这会让步骤1中的修改变为临时的. 如本项目demo中的build.bat,
 
+## 快速编译工具
+### 使用
+
+将tool目录下的`build.exe`和`build.bat`文件复制到与你导入本项目的.go文件同级目录下, 双击执行build.exe即可. 
+
+> 注意: 你的.go文件必须包含你自定义的插件名, 例如`clvq.PluginName = "demo"`
 
 ## TODO List
 
 * [ ] 测试当前所有Api
 * [ ] 完善文档
-* [ ] 开发快速编译dll工具
+* [x] 开发快速编译dll工具
 * [ ] ...
+
+## License
+
+[MIT](https://github.com/yguilai/CleverQQ-SDK-Golang/blob/master/LICENSE)
