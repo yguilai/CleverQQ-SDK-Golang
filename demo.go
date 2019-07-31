@@ -12,10 +12,9 @@ func init() {
 	clvq.IREvent = irEvent
 }
 
-func main() {
+func main() {}
 
-}
-
+// 在此函数下处理所有事件, 消息
 func irEvent(qq string, msgType, subMsgType int, msgFrom, tigObjAct, tigObjPas, msg, msgNum, msgId, rawMsg, json string, ptrNext int) int {
 	return clvq.MT_CONTINUE
 }
