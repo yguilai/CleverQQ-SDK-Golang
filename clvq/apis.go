@@ -41,15 +41,15 @@ var (
 	uploadPic              = getApiProc("Api_UpLoadPic")
 	getPicLink             = getApiProc("Api_GetPicLink")
 	outPutLog              = getApiProc("Api_OutPutLog")
-	teaEncry               = getApiProc("Api_Tea加密")
-	teaDecry               = getApiProc("Api_Tea解密")
+	teaEncry               = getApiProc("Api_TeaEncrypt")
+	teaDecry               = getApiProc("Api_TeaDecrypt")
 	sessionKey             = getApiProc("Api_SessionKey")
 	gn2Gid                 = getApiProc("Api_GNTransGID")
 	gid2Gn                 = getApiProc("Api_GIDTransGN")
 	pbGroupNotic           = getApiProc("Api_PBGroupNotic")
 	getNotice              = getApiProc("Api_GetNotice")
 	shakeWindow            = getApiProc("Api_ShakeWindow")
-	handleEvent            = getApiProc("Api_HandleEvent")
+	handleFriendEvent      = getApiProc("Api_HandleFriendEvent")
 	handleGroupEvent       = getApiProc("Api_HandleGroupEvent")
 	setAnon                = getApiProc("Api_SetAnon")
 	setGroupCard           = getApiProc("Api_SetGroupCard")
@@ -408,13 +408,27 @@ func IRShakeWindow(QQ, ObjQQ string) bool {
 	return ptr2bool(r)
 }
 
-//某人申请入群 添加好友 被邀请入群 请求处理
-func IRHandleEvent(QQ string, reqType int, objQQ, objGroup string, handleType int, addMsg string) {
-	_, _, _ = handleEvent.Call(str2ptr(QQ), int2ptr(reqType),
-		str2ptr(objQQ), str2ptr(objGroup), int2ptr(handleType), str2ptr(addMsg))
+//某人请求添加好友验证处理
+//.版本 2
+//
+//.参数 QQ, 文本型, , 机器人QQ
+//.参数 objQQ, 文本型, , 请求添加好友人QQ
+//.参数 handleType, 整数型, , 10同意 20拒绝 30忽略
+//.参数 addMsg, 文本型, , 拒绝添加好友 附加信息
+func IRHandleFriendEvent(QQ, objQQ string, handleType int, addMsg string) {
+	_, _, _ = handleFriendEvent.Call(str2ptr(QQ), str2ptr(objQQ), int2ptr(handleType), str2ptr(addMsg))
 }
 
-//处理群验证事件 第二模式（新手建议使用Api_HandleEvent） Pro可用
+//某人请求入群 被邀请入群 等 群验证处理
+//.版本 2
+//
+//.参数 QQ, 文本型, , 机器人QQ
+//.参数 reqType, 整数型, , 213请求入群  214我被邀请加入某群  215某人被邀请加入群
+//.参数 objQQ, 文本型, , 申请入群、被邀请人的QQ （当请求类型为214时这里为邀请人QQ）
+//.参数 objGroup, 文本型, , 收到请求群号
+//.参数 seq, 文本型, , 需要处理事件的seq ，这个参数在收到群事件时，IRC_原始信息会传递
+//.参数 handleType, 整数型, , 10同意 20拒绝 30忽略
+//.参数 addMsg, 文本型, , 拒绝入群附加信息
 func IRHandleGroupEvent(QQ string, reqType int, objQQ, objGroup, seq string, handleType int, addMsg string) {
 	_, _, _ = handleGroupEvent.Call(str2ptr(QQ), int2ptr(reqType),
 		str2ptr(objQQ), str2ptr(objGroup), str2ptr(seq), int2ptr(handleType), str2ptr(addMsg))
