@@ -14,6 +14,30 @@
 go get github.com/yguilai/CleverQQ-SDK-Golang
 ```
 
+### 获取本项目可能出现的异常
+* 由于地区原因, 无法成功获取到`golang.org`的包
+```bash
+https fetch failed: Get https://golang.org/x/text/encoding/simplifiedchinese?go-get=1: dial tcp 216.239.37.1:443: 
+// connectex: A connection attempt failed because the connected party did not properly respond after a period of time,
+or established connection failed because connected host has failed to respond.
+```
+
+请尝试修改GO的系统环境变量后, 重新`go get`本项目. 如下:
+```bash
+//打开cmd,执行
+SET GO111MODULE=on
+SET GOPROXY=https://goproxy.io
+```
+通过此设置, 当你`go get`通过`go mod`方式管理的项目时, 会将`https://goproxy.io`作为你的代理
+> 此功能目前对非go mod方式管理的go语言项目无效
+
+* 本地GCC编译器非32位, 或无32位GCC编译器, `go get`后得到如下异常: 
+```bash
+# github.com/yguilai/CleverQQ-SDK-Golang/clvq
+cc1.exe: sorry, unimplemented: 64-bit mode not compiled in
+```
+此异常可以忽略, 你只需遵循[使用](#使用)章节中的规则编译插件即可.
+
 ## 使用
 0.导入本项目
 ```go
@@ -51,7 +75,8 @@ SET GOARCH=386
 ```bash
 go build -ldflags "-s -w" -buildmode=c-shared -o 插件名称.IR.dll
 ```
-> 建议使用bat脚本, 这会让步骤1中的修改变为临时的. 如本项目demo中的build.bat,
+> ~~建议使用bat脚本, 这会让步骤1中的修改变为临时的. 如本项目demo中的build.bat~~.
+> 建议按照规则使用快速编译工具.
 
 ## 快速编译工具
 ### 使用
@@ -59,6 +84,7 @@ go build -ldflags "-s -w" -buildmode=c-shared -o 插件名称.IR.dll
 将tool目录下的`build.exe`和`build.bat`文件复制到与你导入本项目的.go文件同级目录下, 双击执行build.exe即可. 
 
 > 注意: 你的.go文件必须包含你自定义的插件名, 例如`clvq.PluginName = "demo"`
+
 
 ## TODO List
 
@@ -70,3 +96,10 @@ go build -ldflags "-s -w" -buildmode=c-shared -o 插件名称.IR.dll
 ## License
 
 [MIT](https://github.com/yguilai/CleverQQ-SDK-Golang/blob/master/LICENSE)
+
+## 更新日志
+* 2019-08-01: 完善文档, 提出获取本项目可能出现的异常及其解决措施
+* 2019-07-31: 增加快速编译dll工具
+* 2019-07-30: 修复IRIfFriend函数的Bug
+* 2019-07-30: 过滤一些无用文件
+* 2019-07-30: 上传本项目
