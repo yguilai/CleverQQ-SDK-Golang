@@ -18,6 +18,8 @@ var (
 	//插件SDK
 	PluginSDK = "S3"
 	//以上两个变量请勿修改
+	OnRecover = false
+	//添加recover 以免程序panic直接导致主程序闪退
 )
 
 //export IR_Create
@@ -62,6 +64,14 @@ func IR_Event(QQ *C.char, MsgType, SubMsgType C.int, MsgFrom, TigObjAct, TigObjP
 	if IREvent == nil {
 		return MT_CONTINUE
 	}
+	if OnRecover {
+		defer func() {
+			if err := recover(); err != nil{
+				IROutPutLog(fmt.Sprintf("%s", err))
+			}
+		}()
+	}
+
 	return cInt(IREvent(goString(QQ), goInt(MsgType), goInt(SubMsgType), goString(MsgFrom), goString(TigObjAct),
 		goString(TigObjPas), goString(Msg), goString(MsgNum), goString(MsgId), goString(RawMsg), goString(Json), goInt(PtrNext)))
 }

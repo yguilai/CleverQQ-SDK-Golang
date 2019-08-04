@@ -93,13 +93,14 @@ go build -ldflags "-s -w" -buildmode=c-shared -o 插件名称.IR.dll
 * [x] 开发快速编译dll工具
 * [ ] ...
 
-## License
-
-[MIT](https://github.com/yguilai/CleverQQ-SDK-Golang/blob/master/LICENSE)
-
 ## 更新日志
+* 2019-08-04: 给IR_Event事件添加recover, 以免插件panic直接导致框架主程序闪退, 该功能默认情况下关闭, 需要`clvq.OnRecover=true`开启
 * 2019-08-01: 完善文档, 提出获取本项目可能出现的异常及其解决措施
 * 2019-07-31: 增加快速编译dll工具
 * 2019-07-30: 修复IRIfFriend函数的Bug
 * 2019-07-30: 过滤一些无用文件
 * 2019-07-30: 上传本项目
+
+## License
+
+[MIT](https://github.com/yguilai/CleverQQ-SDK-Golang/blob/master/LICENSE)
