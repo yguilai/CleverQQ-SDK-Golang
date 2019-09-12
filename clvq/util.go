@@ -42,7 +42,8 @@ func int2ptr(i int) uintptr {
 }
 
 func byte2ptr(b []byte) uintptr {
-	return uintptr(*((*int32)(unsafe.Pointer(&b))))
+	//return uintptr(*((*int64)(unsafe.Pointer(&b))))
+	return uintptr(unsafe.Pointer(&b))
 }
 
 func bool2ptr(b bool) uintptr {
@@ -89,4 +90,30 @@ func GetCurrPath() (string, error) {
 		return "", err
 	}
 	return path, nil
+}
+
+/**
+ * 读取文件, 返回[]byte
+ */
+func file2Bytes(filename string) ([]byte, error) {
+	// File
+	file, err := os.Open(filename)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	// FileInfo:
+	stats, err := file.Stat()
+	if err != nil {
+		return nil, err
+	}
+
+	// []byte
+	data := make([]byte, stats.Size())
+	_, err = file.Read(data)
+	if err != nil {
+		return nil, err
+	}
+	return data, nil
 }

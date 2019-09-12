@@ -28,11 +28,11 @@ var (
 func IR_Create() *C.char {
 	if IRCreate == nil {
 		pluginInfo := fmt.Sprintf(
-			"插件名称{%s}\n"+
-				"插件版本{%s}\n"+
-				"插件作者{%s}\n"+
-				"插件说明{%s}\n"+
-				"插件skey{%s}\n"+
+			"插件名称{%s}\r"+
+				"插件版本{%s}\r"+
+				"插件作者{%s}\r"+
+				"插件说明{%s}\r"+
+				"插件skey{%s}\r"+
 				"插件sdk{%s}",
 			PluginName, PluginVer, PluginAuthor, PluginDesc, PluginSkey, PluginSDK)
 		return cString(pluginInfo)
