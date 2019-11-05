@@ -1,4 +1,4 @@
-~~# CleverQQ-SDK-Golang~~
+# ~~CleverQQ-SDK-Golang~~
 # CleverQQ框架 官方已停止服务
 本项目为CleverQQ(原IRQQ)插件的Golang SDK, 方便Gopher们开发插件. 
 
